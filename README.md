@@ -11,7 +11,7 @@ safe observation and an active network action.
 Voodoo runs locally, speaks through an Ollama model, and stores continuity in a
 hash-chained SQLite event ledger. It does not install services, change firewall
 rules, quarantine files, or connect a VPN without an explicit future feature
-and operator approval. Version 0.1 observes, explains, and produces evidence.
+and operator approval. Version 0.2 observes, explains, and produces evidence.
 
 ## Defensive core
 
@@ -56,6 +56,15 @@ voodoo init
 voodoo defend posture
 ```
 
+On Windows, `scripts/setup.ps1` also creates a **Voodoo** desktop shortcut.
+Double-click `Voodoo-Desktop.cmd` inside the project if you prefer a portable
+launcher. The desktop console exposes every CLI capability through tabs and
+forms and streams live command output into one activity panel.
+
+Desktop sections include Dashboard, Defense, Sentinel, Recon, Scopes & Leases,
+Knowledge, and Chat. Long-running Sentinel processes have visible Start and Stop
+controls and are terminated when the window closes.
+
 Ollama is only needed for conversation. Defensive commands run without a model.
 The default model is `qwen3:8b`; change `VoodooData/config.json` if desired.
 
@@ -86,6 +95,10 @@ Watch a live application or authentication log in alert-only mode:
 ```powershell
 voodoo sentinel watch C:\logs\application.log
 ```
+
+Log watching detects and records recommended containment decisions but cannot
+intercept traffic that has already reached another program. Use the inline HTTP
+shield for actual automated blocking or diversion.
 
 Run Voodoo as an inline shield in front of a local web service:
 

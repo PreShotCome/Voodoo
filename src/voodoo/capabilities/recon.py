@@ -79,7 +79,7 @@ class Recon:
             follow_redirects=False, timeout=10, trust_env=False
         ) as client:
             async with client.stream(
-                "GET", url, headers={"User-Agent": "Voodoo/0.1 authorized-audit"}
+                "GET", url, headers={"User-Agent": "Voodoo/0.2 authorized-audit"}
             ) as response:
                 status = response.status_code
                 headers = _redacted_headers(response.headers)

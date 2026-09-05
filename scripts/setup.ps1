@@ -16,5 +16,5 @@ if (-not (Test-Path ".venv")) {
 & .\.venv\Scripts\python.exe -m pip install --upgrade pip
 & .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 & .\.venv\Scripts\python.exe -m voodoo init
-Write-Host "Voodoo is installed. Run .\.venv\Scripts\voodoo.exe defend posture"
-
+& "$PSScriptRoot\install-desktop.ps1"
+Write-Host "Voodoo is installed. Open the Voodoo shortcut on your desktop."

@@ -22,7 +22,7 @@ Operator -> CLI -> Voodoo runtime
 6. The model does not choose whether policy passes and cannot edit the ledger.
 7. The model receives qualitative behavioral guidance, never raw affect values.
 8. Tool results are ledger events; the assistant must not invent missing results.
-9. Host-changing remediation is absent from v0.1.
+9. Host-changing remediation is absent from v0.2.
 10. Sentinel containment happens in the foreground inline shield; it does not
     leave persistent firewall rules behind after Voodoo exits.
 

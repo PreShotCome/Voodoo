@@ -1,6 +1,6 @@
 # Security policy
 
-Voodoo 0.1 is an early defensive tool, not a replacement for endpoint detection,
+Voodoo 0.2 is an early defensive tool, not a replacement for endpoint detection,
 antivirus, tested backups, or professional incident response.
 
 Please report vulnerabilities privately to the repository owner. Do not include
@@ -12,4 +12,3 @@ known.
 Network functionality is intended only for systems the operator owns or has
 explicit authorization to assess. Proton VPN changes network privacy, not legal
 authorization.
-
