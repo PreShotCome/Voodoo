@@ -24,6 +24,8 @@ and operator approval. Version 0.1 observes, explains, and produces evidence.
 - **Log triage:** bounded analysis for authentication attacks, privilege changes,
   disabled controls, encoded PowerShell, and common web probes.
 - **Posture:** read-only host/runtime/data-root checks with a compact score.
+- **Sentinel:** continuously correlates incoming log signals and can operate an
+  inline HTTP shield that blocks or diverts high-confidence probes.
 - **Audit:** every material action enters an append-only hash chain that can be
   verified later.
 
@@ -77,6 +79,36 @@ voodoo defend hunt C:\Users\Ian --sha256 <known_sha256> --name suspicious.exe
 voodoo audit verify
 ```
 
+## Sentinel: automated detection and diversion
+
+Watch a live application or authentication log in alert-only mode:
+
+```powershell
+voodoo sentinel watch C:\logs\application.log
+```
+
+Run Voodoo as an inline shield in front of a local web service:
+
+```powershell
+# Protected service listens only on 127.0.0.1:3000.
+# Point the public listener or trusted edge proxy at Voodoo on port 8080.
+voodoo sentinel proxy --upstream http://127.0.0.1:3000 `
+  --listen 0.0.0.0 --port 8080 --mode divert
+```
+
+The shield immediately stops or diverts directory traversal, secret-file probes,
+common injection signatures, and suspicious encoded-command traffic. Repeated
+signals are correlated by source, and a per-source request-rate ceiling handles
+basic floods. Diverted requests receive a harmless decoy response and never
+reach the protected service. Every signal and decision is written to the ledger.
+
+Voodoo uses the socket's direct peer address and ignores `X-Forwarded-For` by
+default because accepting an untrusted forwarded header would allow spoofing.
+Private, loopback, link-local, multicast, and reserved addresses are protected
+from automated containment unless `--allow-private-containment` is explicitly
+set. The upstream service must not remain independently exposed, or an attacker
+can bypass the shield.
+
 ## Scoped reconnaissance with Proton
 
 ```powershell
@@ -107,4 +139,3 @@ See [Architecture](docs/ARCHITECTURE.md) and [Threat model](docs/THREAT-MODEL.md
 
 Use network features only on systems you own or are explicitly authorized to
 assess. A VPN provides privacy; it does not provide permission.
-
